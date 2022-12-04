@@ -12,6 +12,7 @@ using System.Linq;
 using System.Threading.Tasks;
 using API.Repo.EF;
 using Microsoft.EntityFrameworkCore;
+using Microsoft.AspNetCore.Mvc.NewtonsoftJson;
 
 namespace API
 {
@@ -35,8 +36,9 @@ namespace API
         
         public void ConfigureServices(IServiceCollection services)
         {
-            services.AddControllers();
+            services.AddControllers().AddNewtonsoftJson(x=>x.SerializerSettings.ReferenceLoopHandling=Newtonsoft.Json.ReferenceLoopHandling.Ignore);
             services.AddDbContext<Repo.EF.Repository>(options=>options.UseSqlServer(ConnectToDb));
+           
             
             
         }

@@ -1,6 +1,7 @@
 ﻿using System.ComponentModel.DataAnnotations.Schema;
 using System.ComponentModel.DataAnnotations;
 using System.Collections.Generic;
+using System.Text.Json.Serialization;
 
 namespace API.Models
 {
@@ -18,11 +19,9 @@ namespace API.Models
         [ConcurrencyCheck]
         public string Surname { get; set; }
 
-        
-        public AdressPersons Adresses { get; set; }
+        public AdressPersons? Adresses { get; set; }
 
-        
-        public IEnumerable<Aducation> Kurses { get; set; }
+        public Aducation? Kurses { get; set; }
 
 
 

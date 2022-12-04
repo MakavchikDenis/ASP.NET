@@ -5,13 +5,13 @@ namespace API.Repo.EF
     public interface IRepository
     {
 
-        public IEnumerable<T> Get<T>();
+        public IEnumerable<T> Get<T>() where T : class;
 
-        public void Added<T>(T ob);
+        public void Added<T>(T ob) where T : class;
 
-        public void Updata<T>(T ob);
+        public void Updata<T>(T ob) where T : class;
 
-        public void Delete<T>(T ob);
+        public void Delete<T>(T ob) where T : class;
 
     }
 }

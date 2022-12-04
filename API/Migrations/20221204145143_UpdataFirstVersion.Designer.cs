@@ -4,14 +4,16 @@ using API.Repo.EF;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Infrastructure;
 using Microsoft.EntityFrameworkCore.Metadata;
+using Microsoft.EntityFrameworkCore.Migrations;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 
 namespace API.Migrations
 {
     [DbContext(typeof(Repository))]
-    partial class RepositoryModelSnapshot : ModelSnapshot
+    [Migration("20221204145143_UpdataFirstVersion")]
+    partial class UpdataFirstVersion
     {
-        protected override void BuildModel(ModelBuilder modelBuilder)
+        protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder
@@ -60,9 +62,6 @@ namespace API.Migrations
                     b.Property<int?>("AdressesId")
                         .HasColumnType("int");
 
-                    b.Property<int?>("KursesId")
-                        .HasColumnType("int");
-
                     b.Property<string>("Name")
                         .IsConcurrencyToken()
                         .IsRequired()
@@ -79,9 +78,22 @@ namespace API.Migrations
 
                     b.HasIndex("AdressesId");
 
-                    b.HasIndex("KursesId");
-
                     b.ToTable("Persons", "ApiBase");
+                });
+
+            modelBuilder.Entity("AducationPerson", b =>
+                {
+                    b.Property<int>("KursesId")
+                        .HasColumnType("int");
+
+                    b.Property<int>("PersonsId")
+                        .HasColumnType("int");
+
+                    b.HasKey("KursesId", "PersonsId");
+
+                    b.HasIndex("PersonsId");
+
+                    b.ToTable("AducationPerson");
                 });
 
             modelBuilder.Entity("API.Models.Person", b =>
@@ -90,18 +102,22 @@ namespace API.Migrations
                         .WithMany()
                         .HasForeignKey("AdressesId");
 
-                    b.HasOne("API.Models.Aducation", "Kurses")
-                        .WithMany("Persons")
-                        .HasForeignKey("KursesId");
-
                     b.Navigation("Adresses");
-
-                    b.Navigation("Kurses");
                 });
 
-            modelBuilder.Entity("API.Models.Aducation", b =>
+            modelBuilder.Entity("AducationPerson", b =>
                 {
-                    b.Navigation("Persons");
+                    b.HasOne("API.Models.Aducation", null)
+                        .WithMany()
+                        .HasForeignKey("KursesId")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
+
+                    b.HasOne("API.Models.Person", null)
+                        .WithMany()
+                        .HasForeignKey("PersonsId")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
                 });
 #pragma warning restore 612, 618
         }
