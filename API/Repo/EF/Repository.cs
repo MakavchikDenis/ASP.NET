@@ -20,11 +20,6 @@ namespace API.Repo.EF
 
         }
 
-
-
-
-
-
         public IEnumerable<T> Get<T>() where T : class => this.Set<T>();
 
 

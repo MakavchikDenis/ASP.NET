@@ -30,28 +30,37 @@ namespace API
         }
 
         public IConfiguration Configuration { get; }
-        
-        public string ConnectToDb { get; } 
 
-        
+        public string ConnectToDb { get; }
+
+
         public void ConfigureServices(IServiceCollection services)
         {
-            services.AddControllers().AddNewtonsoftJson(x=>x.SerializerSettings.ReferenceLoopHandling=Newtonsoft.Json.ReferenceLoopHandling.Ignore);
-            services.AddDbContext<Repo.EF.Repository>(options=>options.UseSqlServer(ConnectToDb));
-           
+            services.AddControllers().AddNewtonsoftJson(x => x.SerializerSettings.ReferenceLoopHandling = Newtonsoft.Json.ReferenceLoopHandling.Ignore);
+            services.AddDbContext<Repo.EF.Repository>(options => options.UseSqlServer(ConnectToDb));
+            services.AddSwaggerGen();
             
-            
+
+
         }
 
-       
+
         public void Configure(IApplicationBuilder app, IWebHostEnvironment env)
         {
+           
+
             if (env.IsDevelopment())
             {
                 app.UseDeveloperExceptionPage();
+                app.UseSwagger();
+                app.UseSwaggerUI(
+                c =>
+                {
+                    c.SwaggerEndpoint("/swagger/v1/swagger.json", "v1");
+                });
             }
 
-           
+
             app.UseRouting();
 
             app.UseEndpoints(endpoints =>

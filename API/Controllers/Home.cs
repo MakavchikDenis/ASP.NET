@@ -1,21 +1,20 @@
-﻿using Microsoft.AspNetCore.Http;
-using Microsoft.AspNetCore.Mvc;
+﻿using API.Models;
 using API.Repo.EF;
-using API.Models;
+using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
+using System;
 using System.Collections.Generic;
 using System.Linq;
-using System;
 
 namespace API.Controllers
 {
     [Controller]
-    [Route("[Controller]")]
-    public class Main : ControllerBase
+    [Route("Home")]
+    public class IndexController : ControllerBase
     {
         IRepository repo;
 
-        public Main(Repository _repo) => repo = _repo;
+        public IndexController(Repository _repo) => repo = _repo;
 
 
 
