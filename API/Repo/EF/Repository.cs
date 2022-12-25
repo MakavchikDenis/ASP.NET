@@ -10,7 +10,7 @@ namespace API.Repo.EF
        
 
         public DbSet<Person> Person { get; set; }
-        public DbSet<AdressPersons> AdressPersons { get; set; }
+        public DbSet<Adress> AdressPersons { get; set; }
         public DbSet<Aducation> Aducations { get; set; }
 
 

@@ -1,7 +1,6 @@
-﻿using System.ComponentModel.DataAnnotations.Schema;
-using System.ComponentModel.DataAnnotations;
+﻿using System.ComponentModel.DataAnnotations;
+using System.ComponentModel.DataAnnotations.Schema;
 using System.Collections.Generic;
-using System.Text.Json.Serialization;
 
 namespace API.Models
 {
@@ -19,18 +18,27 @@ namespace API.Models
         [ConcurrencyCheck]
         public string Surname { get; set; }
 
-        public AdressPersons? Adresses { get; set; }
+       
 
-        public Aducation? Kurses { get; set; }
+        [ForeignKey("AdressId")]
+        public Adress AdressPerson { get; set; }
+
+        [ForeignKey("AducationId")]
+        public Aducation Course { get; set; }
 
 
 
         public Person() { }
 
-        public Person(string _Name, string _Surname, string _Adress) => (Name, Surname, Adresses) = (_Name, _Surname, new AdressPersons { Adress=_Adress});
+        public Person(string _Name, string _Surname, Adress _Adress) => (Name, Surname, AdressPerson) = (_Name, _Surname, _Adress);
 
-        public void Deconstruct(out string NameOut, out string SurnameOut, out string AdressOut) =>
-            (NameOut, SurnameOut, AdressOut) = (this.Name, this.Surname, this.Adresses.Adress);
+        public Person(string _Name, string _Surname, Adress _Adress, Aducation _Course) : this(_Name, _Surname, _Adress) => this.Course = _Course;
+
+
+
+
+        public void Deconstruct(out string NameOut, out string SurnameOut, out Adress AdressOut, out Aducation Course) =>
+            (NameOut, SurnameOut, AdressOut, Course) = (this.Name, this.Surname, this.AdressPerson, this.Course);
 
 
     }

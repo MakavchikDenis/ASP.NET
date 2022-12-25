@@ -4,15 +4,16 @@ using System.ComponentModel.DataAnnotations;
 
 namespace API.Models
 {
-    
-    public class AdressPersons
+    [Table(name: "Adress", Schema = "ApiBase")]
+    public class Adress
     {
         [Key, DatabaseGenerated(DatabaseGeneratedOption.Identity)]
         public int Id { get; set; }
-        public string Adress { get; set; }
+        [Required]
+        public string Details{ get; set; }
 
-        public AdressPersons() { }
-        public AdressPersons(string _Adress) => Adress = _Adress;
+        public Adress() { }
+        public Adress(string _Details) => Details = Details;
 
         
     }

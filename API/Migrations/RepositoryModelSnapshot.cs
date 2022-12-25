@@ -19,19 +19,20 @@ namespace API.Migrations
                 .HasAnnotation("Relational:MaxIdentifierLength", 128)
                 .HasAnnotation("ProductVersion", "5.0.0");
 
-            modelBuilder.Entity("API.Models.AdressPersons", b =>
+            modelBuilder.Entity("API.Models.Adress", b =>
                 {
                     b.Property<int>("Id")
                         .ValueGeneratedOnAdd()
                         .HasColumnType("int")
                         .UseIdentityColumn();
 
-                    b.Property<string>("Adress")
+                    b.Property<string>("Details")
+                        .IsRequired()
                         .HasColumnType("nvarchar(max)");
 
                     b.HasKey("Id");
 
-                    b.ToTable("AdressPersons");
+                    b.ToTable("Adress", "ApiBase");
                 });
 
             modelBuilder.Entity("API.Models.Aducation", b =>
@@ -41,13 +42,13 @@ namespace API.Migrations
                         .HasColumnType("int")
                         .UseIdentityColumn();
 
-                    b.Property<string>("NameKurs")
+                    b.Property<string>("NameCourse")
                         .IsRequired()
                         .HasColumnType("nvarchar(max)");
 
                     b.HasKey("Id");
 
-                    b.ToTable("Aducations");
+                    b.ToTable("Aducation", "ApiBase");
                 });
 
             modelBuilder.Entity("API.Models.Person", b =>
@@ -57,10 +58,10 @@ namespace API.Migrations
                         .HasColumnType("int")
                         .UseIdentityColumn();
 
-                    b.Property<int?>("AdressesId")
+                    b.Property<int?>("AdressId")
                         .HasColumnType("int");
 
-                    b.Property<int?>("KursesId")
+                    b.Property<int?>("AducationId")
                         .HasColumnType("int");
 
                     b.Property<string>("Name")
@@ -77,26 +78,26 @@ namespace API.Migrations
 
                     b.HasKey("Id");
 
-                    b.HasIndex("AdressesId");
+                    b.HasIndex("AdressId");
 
-                    b.HasIndex("KursesId");
+                    b.HasIndex("AducationId");
 
                     b.ToTable("Persons", "ApiBase");
                 });
 
             modelBuilder.Entity("API.Models.Person", b =>
                 {
-                    b.HasOne("API.Models.AdressPersons", "Adresses")
+                    b.HasOne("API.Models.Adress", "AdressPerson")
                         .WithMany()
-                        .HasForeignKey("AdressesId");
+                        .HasForeignKey("AdressId");
 
-                    b.HasOne("API.Models.Aducation", "Kurses")
+                    b.HasOne("API.Models.Aducation", "Course")
                         .WithMany("Persons")
-                        .HasForeignKey("KursesId");
+                        .HasForeignKey("AducationId");
 
-                    b.Navigation("Adresses");
+                    b.Navigation("AdressPerson");
 
-                    b.Navigation("Kurses");
+                    b.Navigation("Course");
                 });
 
             modelBuilder.Entity("API.Models.Aducation", b =>
