@@ -39,6 +39,7 @@ namespace API
             services.AddControllers().AddNewtonsoftJson(x => x.SerializerSettings.ReferenceLoopHandling = Newtonsoft.Json.ReferenceLoopHandling.Ignore);
             services.AddDbContext<Repo.EF.Repository>(options => options.UseSqlServer(ConnectToDb));
             services.AddSwaggerGen();
+           
             
 
 
