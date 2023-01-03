@@ -7,6 +7,7 @@ using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
+using NLog;
 
 namespace ClientProject
 {
@@ -17,6 +18,7 @@ namespace ClientProject
         public void ConfigureServices(IServiceCollection services)
         {
             services.AddControllersWithViews();
+            services.AddScoped(LogManager.GetLogger("EtraLogger").GetType());
            
         }
 
