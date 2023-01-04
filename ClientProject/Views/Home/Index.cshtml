@@ -1,0 +1,15 @@
+﻿@using API.Models;
+@model List<Person>;
+@{
+    ViewData["Title"] = "Home page";
+}
+ 
+<div class="text-center">
+    @foreach(var i in @Model){
+        <p>
+            <span>i.Surname</span>
+
+        </p>
+    
+    }
+</div>

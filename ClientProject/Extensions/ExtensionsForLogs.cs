@@ -18,7 +18,7 @@ namespace ClientProject.Extensions
         public static  IServiceCollection AddServicesForLogs(this IServiceCollection services, IConfiguration configuration)
         {
 
-            services.AddScoped(LogManager.GetLogger("EtraLogger").GetType());
+            services.AddScoped<Logger>(x=>LogManager.GetLogger("EtraLogger"));
             services.AddTransient<IContextLogs>(x =>
             new ContextLogs(Environment.GetEnvironmentVariable("ASPNETCORE_ENVIRONMENT") != null ?
                 configuration.GetConnectionString("ConnectForTest") : "", (Logger)x.GetService(typeof(Logger))));
@@ -30,4 +30,4 @@ namespace ClientProject.Extensions
     }
 
 }
-}
+

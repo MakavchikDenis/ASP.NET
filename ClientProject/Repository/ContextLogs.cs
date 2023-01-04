@@ -27,16 +27,17 @@ namespace ClientProject.Repository
             {
                 InsertToLogs toLogs = (InsertToLogs)ob;
                 DynamicParameters parameters = new DynamicParameters();
+                parameters.Add("@User","new");
                 parameters.Add("@ActionType", toLogs.ActionType);
                 parameters.Add("@ActionDetails", toLogs.ActionDetails);
                 parameters.Add("@Details", toLogs.Details);
-                parameters.Add("@Error", value: null, DbType.String, ParameterDirection.Output, 100);
+                parameters.Add("@Error",value:String.Empty, DbType.String, ParameterDirection.Output, 100);
 
 
 
                 using (IDbConnection dbConnection = new SqlConnection(connectToDb))
                 {
-                    await dbConnection.ExecuteAsync("InsertToLogs", toLogs, commandType: CommandType.StoredProcedure);
+                    await dbConnection.ExecuteAsync("InsertToLogs", parameters, commandType: CommandType.StoredProcedure);
 
                 };
 

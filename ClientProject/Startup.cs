@@ -26,12 +26,11 @@ namespace ClientProject
         // For more information on how to configure your application, visit https://go.microsoft.com/fwlink/?LinkID=398940
         public void ConfigureServices(IServiceCollection services)
         {
-            services.AddControllersWithViews();
-            services.AddScoped(LogManager.GetLogger("EtraLogger").GetType());
+            //services.AddControllersWithViews();
+            services.AddMvc();
             //создал расширение и добавил по логу все туда
             services.AddServicesForLogs(configuration);
-            //просто попробовал использовать расширение
-            services.TryAddScoped<IServiceForApi<string>>(provider => new ServiceForApi.ServiceForApi("http://localhost:26806"));
+            services.ExtensionsForAPISService();
 
 
 
