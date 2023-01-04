@@ -2,6 +2,13 @@
 {
     public class ServiceForApi : IServiceForApi<string>
     {
+        readonly string ConnectToAPI;
+
+        public ServiceForApi(string connectToAPI)
+        {
+            ConnectToAPI = connectToAPI;
+        }
+
         public void AddedNewPersonForApiAsync(string person)
         {
             throw new System.NotImplementedException();
